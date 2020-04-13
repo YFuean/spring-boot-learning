@@ -1,6 +1,8 @@
 package com.soft1851.springboot.aop.aspect;
 
 import com.soft1851.springboot.aop.annotation.AuthToken;
+import com.soft1851.springboot.aop.util.Result;
+import com.soft1851.springboot.aop.util.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -47,7 +49,7 @@ public class AuthAspect {
             if (id != null){
                 return pjp.proceed();
             }
-            return "请先登录";
+            return Result.failure(ResultCode.USER_NOT_SIGN_IN);
         }else {
             //验证身份
             String role = request.getHeader("role");
@@ -57,7 +59,7 @@ public class AuthAspect {
                     return pjp.proceed();
                 }
             }
-            return "权限不足，无法访问";
+            return Result.failure(ResultCode.USER_NO_AUTH);
         }
     }
 }
