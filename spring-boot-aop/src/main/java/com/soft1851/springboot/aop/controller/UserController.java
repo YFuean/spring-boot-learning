@@ -1,11 +1,16 @@
 package com.soft1851.springboot.aop.controller;
 
 import com.soft1851.springboot.aop.annotation.AuthToken;
+import com.soft1851.springboot.aop.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.security.PublicKey;
+import java.util.Map;
 
 /**
  * @ClassName UserController
@@ -15,7 +20,10 @@ import java.security.PublicKey;
  **/
 @RestController
 @Slf4j
+@RequestMapping(value = "/user")
 public class UserController {
+    @Resource
+    private SysUserService sysUserService;
 
     /**
      * 无需校验，不用注解
@@ -30,25 +38,11 @@ public class UserController {
 
     /**
      * 需要登录的校验,需要加注解，不用传角色
-     * @param name
+     * @param
      * @return
      */
-    @GetMapping("user")
-    @AuthToken
-    public String user(String name){
-        log.info("user()方法需要认证，当前用户名："+name);
-        return "user()方法访问成功";
-    }
-
-    /**需要登录的校验,需要加注解，需要传角色
-     *
-     * @param name
-     * @return
-     */
-    @GetMapping("admin")
-    @AuthToken(role_name = {"admin","Admin"})
-    public String admin(String name){
-        log.info("user()方法需要鉴权，当前用户名："+name);
-        return "admin()方法访问成功";
+    @GetMapping("/login")
+    public Map<String,Object> sign(@Param("id") String id,@Param("password") String password){
+        return sysUserService.signIn(id,password);
     }
 }

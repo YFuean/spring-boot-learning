@@ -1,4 +1,4 @@
-package com.soft1851.springboot.aop.util;
+package com.soft1851.springboot.aop.common;
 
 import java.util.ArrayList;
 import java.util.List;
