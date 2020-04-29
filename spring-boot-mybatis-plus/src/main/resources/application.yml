@@ -21,10 +21,9 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.soft1851.springboot.mbp.entity
+  type-aliases-package: com.soft1851.springboot.mbp.model
   global-config:
     db-config:
-      # 主键类型：auto主键自增
       id-type: auto
       # field-strategy: not_empty
       table-underline: true

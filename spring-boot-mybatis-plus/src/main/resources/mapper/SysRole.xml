@@ -10,8 +10,8 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        role_id, role_name, description
-    </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM sys_role
+    </select>
 
 </mapper>
